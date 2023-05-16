@@ -24,5 +24,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::post('refresh', 'AuthController@refresh')->name('auth.refresh');
         });
     });
+
+    Route::group(['prefix' => 'promo-codes', 'middleware' => 'auth'], function () {
+        Route::post('generate', 'AuthController@generate')->name('promo-codes.generate');
+        Route::post('validate', 'AuthController@validate')->name('promo-codes.validate');
+    });
 });
 
