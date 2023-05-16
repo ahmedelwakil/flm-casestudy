@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Utils\UserTypeUtil;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,6 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         User::factory(10)->create();
+         User::factory(3)->create(['type' => UserTypeUtil::ADMIN]);
+         User::factory(10)->create(['type' => UserTypeUtil::USER]);
     }
 }
