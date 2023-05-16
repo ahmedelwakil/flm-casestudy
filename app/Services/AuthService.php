@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 
 class AuthService extends BaseService
@@ -21,12 +22,12 @@ class AuthService extends BaseService
     /**
      * @param array $credentials
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function authenticate(array $credentials)
     {
         if (!$accessToken = Auth::attempt($credentials)) {
-            throw new \Exception('Wrong Email Or Password');
+            throw new Exception('Wrong Email Or Password');
         }
         return $accessToken;
     }

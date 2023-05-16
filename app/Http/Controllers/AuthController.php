@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Services\AuthService;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Tymon\JWTAuth\JWTAuth;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends BaseController
 {
+    /**
+     * @var AuthService
+     */
     protected $service;
 
     /**
@@ -17,14 +22,14 @@ class AuthController extends BaseController
      */
     public function __construct(AuthService $authService)
     {
-        $this->service = $authService;
+        parent::__construct($authService);
     }
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Validation\ValidationException
-     * @throws \Exception
+     * @return JsonResponse
+     * @throws ValidationException
+     * @throws Exception
      */
     public function login(Request $request)
     {
