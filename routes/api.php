@@ -14,8 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
+
+    /** Authentications Routes */
     Route::group(['prefix' => 'auth'], function () {
-        Route::post('login', 'AuthController@login');
+        Route::post('login', 'AuthController@login')->name('auth.login');
+
+        Route::group(['middleware' => 'auth'], function () {
+            Route::post('logout', 'AuthController@logout')->name('auth.logout');
+            Route::post('refresh', 'AuthController@refresh')->name('auth.refresh');
+        });
     });
 });
 

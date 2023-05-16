@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\UnauthorizedAction;
 use App\Models\User;
 use App\Services\AuthService;
+use App\Utils\HttpStatusCodeUtil;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -54,6 +56,47 @@ class AuthController extends BaseController
             'user' => $user->toArray()
         ];
 
-        return $this->response($payload, 200, 'Login Successful');
+        return $this->response($payload, HttpStatusCodeUtil::OK, 'Login Successful');
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function logout()
+    {
+        $token = Auth::getToken();
+        $this->service->invalidateToken($token);
+        Auth::logout();
+        return $this->response(null, HttpStatusCodeUtil::OK, "Logged Out Successfully");
+    }
+
+    /**
+     * @return JsonResponse
+     * @throws UnauthorizedAction
+     */
+    public function refresh(): JsonResponse
+    {
+        $tokenPayload = auth()->payload()->toArray();
+        if (!isset($tokenPayload['refresh']) && !$tokenPayload['refresh']) {
+            throw new UnauthorizedAction();
+        }
+
+        $relatedToken = $tokenPayload['relatedToken'];
+        $this->service->invalidateToken($relatedToken);
+
+        /** @var User $user */
+        $user = Auth::user();
+        $accessToken = Auth::login($user);
+        $refreshToken = $this->service->createRefreshToken($user, $accessToken);
+
+        $payload = [
+            'tokens' => [
+                'accessToken' => $accessToken,
+                'refreshToken' => $refreshToken,
+                'token_type' => 'bearer',
+                'expires_in' => Auth::factory()->getTTL() * 60
+            ]
+        ];
+        return $this->response($payload, HttpStatusCodeUtil::OK, "Refresh Successfully");
     }
 }

@@ -10,6 +10,6 @@ class UnauthorizedAction extends \Exception
      */
     public function __construct(?string $message = null)
     {
-        parent::__construct("Unauthorized");
+        parent::__construct($message ?? "Unauthorized");
     }
 }

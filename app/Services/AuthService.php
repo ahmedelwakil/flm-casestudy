@@ -44,4 +44,14 @@ class AuthService extends BaseService
             ->setTTL(config('jwt.refresh_ttl'))
             ->login($user);
     }
+
+    /**
+     * @param $token
+     */
+    public function invalidateToken($token)
+    {
+        Auth::refresh(true, true);
+        Auth::setToken($token);
+        Auth::invalidate();
+    }
 }
