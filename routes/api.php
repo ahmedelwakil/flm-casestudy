@@ -27,8 +27,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     /** Promo Codes Routes */
     Route::group(['prefix' => 'promo-codes', 'middleware' => 'auth'], function () {
-        Route::post('generate', 'PromoCodeController@generatePromoCode')->name('promo-codes.generate');
-        Route::post('validate', 'PromoCodeController@validatePromoCode')->name('promo-codes.validate');
+        Route::post('generate', 'PromoCodeController@generatePromoCode')->middleware('isAdmin')->name('promo-codes.generate');
+        Route::post('validate', 'PromoCodeController@validatePromoCode')->middleware('isUser')->name('promo-codes.validate');
     });
 });
 

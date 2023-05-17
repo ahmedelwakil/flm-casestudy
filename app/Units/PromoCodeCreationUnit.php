@@ -14,6 +14,15 @@ class PromoCodeCreationUnit implements Unit
     protected $maxNoOfUsagesPerUser;
     protected $allowedUsers;
 
+    /**
+     * PromoCodeCreationUnit constructor.
+     * @param string $type
+     * @param float $value
+     * @param $expiryDate
+     * @param int $maxNoOfUsages
+     * @param int $maxNoOfUsagesPerUser
+     * @param array|null $allowedUsers
+     */
     public function __construct(string $type, float $value, $expiryDate, int $maxNoOfUsages, int $maxNoOfUsagesPerUser, array $allowedUsers = null)
     {
         $this->code = 'FLM-' . Str::random(4);

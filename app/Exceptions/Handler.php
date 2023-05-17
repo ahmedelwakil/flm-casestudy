@@ -14,7 +14,8 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        UnauthorizedAction::class
+        UnauthorizedAction::class,
+        LogicalException::class
     ];
 
     /**

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\LogicalException;
 use App\Services\PromoCodeService;
 use App\Units\PromoCodeCreationUnit;
 use App\Utils\HttpStatusCodeUtil;
 use App\Utils\PromoCodesTypesUtil;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Throwable;
 
@@ -61,10 +61,24 @@ class PromoCodeController extends BaseController
 
     /**
      * @param Request $request
-     * @return array|void
+     * @return JsonResponse
+     * @throws LogicalException
+     * @throws Throwable
+     * @throws ValidationException
      */
     public function validatePromoCode(Request $request)
     {
+        $validatedData = $this->validate($request, [
+            'promo_code' => 'required|string|exists:promo_codes,code',
+            'price' => 'required|numeric'
+        ]);
 
+        $promoCodeUsage = $this->service->applyPromoCode($validatedData['promo_code'], $validatedData['price']);
+        $payload = [
+            'price' => $promoCodeUsage->price,
+            'promocode_discounted_amount' => $promoCodeUsage->discount,
+            'final_price' => $promoCodeUsage->final_price
+        ];
+        return $this->response($payload, HttpStatusCodeUtil::OK, 'Promo Code Applied Successfully');
     }
 }
