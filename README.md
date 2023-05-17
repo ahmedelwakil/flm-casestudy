@@ -12,7 +12,7 @@ Steps on how to deploy (Make sure docker-compose is installed on your machine):
 - Open the command line and change the current directory to the project directory
 - Create <b>[.env](./.env)</b> file and copy it's content from the <b>[.env.deploy](./deploy-docker/.env.deploy)</b>
 - Run Command ```docker-compose up -d```
-- Enjoy :star_struck:
+- Enjoy! :star_struck:
 
 The project will install 2 docker containers:
 - **MySQL Container**
@@ -34,11 +34,11 @@ Each of this layer has its own **Abstract Base Class** which provides the common
 - **BaseController**
 
 Also, you can find different code structures for single responsibilities such as:
-- Exceptions
-- Middlewares
-- Units
-- Utils
-- ..etc
+- **Exceptions**
+- **Middlewares**
+- **Units**
+- **Utils**
+- **..etc**
 
 Moreover, the project has its database seeder to easily populate the database.
 
