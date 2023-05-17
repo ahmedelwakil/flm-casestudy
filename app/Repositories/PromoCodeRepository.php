@@ -13,4 +13,13 @@ class PromoCodeRepository extends BaseRepository
     {
         return PromoCode::class;
     }
+
+    /**
+     * @param string $code
+     * @return bool
+     */
+    public function checkCodeUnique(string $code)
+    {
+        return $this->model->where('code', '=', $code)->count() == 0;
+    }
 }

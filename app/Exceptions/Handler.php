@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use App\Utils\HttpStatusCodeUtil;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -12,7 +14,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        //
+        UnauthorizedAction::class
     ];
 
     /**
@@ -25,13 +27,10 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
-    /**
-     * Register the exception handling callbacks for the application.
-     *
-     * @return void
-     */
-    public function register()
+    public function render($request, Throwable $exception)
     {
-        //
+        if (in_array(get_class($exception), $this->dontReport))
+            return response()->json(["payload" => ['message' => $exception->getMessage()]], HttpStatusCodeUtil::BAD_REQUEST, [], JSON_INVALID_UTF8_IGNORE);
+        return parent::render($request, $exception);
     }
 }

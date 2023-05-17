@@ -1,5 +1,6 @@
 <?php
 
+use App\Utils\PromoCodesTypesUtil;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -12,10 +13,12 @@ class CreatePromoCodesTables extends Migration
         Schema::create('promo_codes', function (Blueprint $table) {
             $table->id();
             $table->string('code', 10)->nullable(false)->unique();
+            $table->enum('type', PromoCodesTypesUtil::getPromoCodesTypes())->nullable(false)->index();
+            $table->double('value')->nullable(false);
             $table->date('expiry_date')->nullable(false)->index();
             $table->integer('max_no_of_usages');
             $table->integer('max_no_of_usages_per_user');
-            $table->json('allowed_users');
+            $table->json('allowed_users')->nullable()->default(null);
             $table->timestamp('created_at')->nullable(false)->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable(false)->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

@@ -56,7 +56,7 @@ class AuthController extends BaseController
             'user' => $user->toArray()
         ];
 
-        return $this->response($payload, HttpStatusCodeUtil::OK, 'Login Successful');
+        return $this->response($payload, HttpStatusCodeUtil::OK, 'Login Successfully');
     }
 
     /**
@@ -78,7 +78,7 @@ class AuthController extends BaseController
     {
         $tokenPayload = auth()->payload()->toArray();
         if (!isset($tokenPayload['refresh']) && !$tokenPayload['refresh']) {
-            throw new UnauthorizedAction();
+            throw new UnauthorizedAction('Invalid Refresh Token');
         }
 
         $relatedToken = $tokenPayload['relatedToken'];

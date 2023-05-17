@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\UnauthorizedAction;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Exception;
@@ -27,7 +28,7 @@ class AuthService extends BaseService
     public function authenticate(array $credentials)
     {
         if (!$accessToken = Auth::attempt($credentials)) {
-            throw new Exception('Wrong Email Or Password');
+            throw new UnauthorizedAction('Wrong Email Or Password');
         }
         return $accessToken;
     }

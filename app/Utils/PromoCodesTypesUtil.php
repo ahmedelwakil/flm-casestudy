@@ -2,7 +2,7 @@
 
 namespace App\Utils;
 
-class PromoCodesTypes
+class PromoCodesTypesUtil
 {
     CONST VALUE = 'value';
     CONST PERCENTAGE = 'percentage';
