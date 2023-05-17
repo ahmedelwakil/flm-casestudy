@@ -1,4 +1,6 @@
 version: '3'
+volumes:
+  db-data:
 
 services:
   flm-api:
@@ -6,24 +8,24 @@ services:
     restart: always
     container_name: flm-api
     volumes:
-        - ./:/var/www/html
+      - ./:/var/www/html
     ports:
-        - 8097:80
+      - 8097:80
+    depends_on:
+      - flm-mysql
 
   flm-mysql:
     image: mysql:8.0.29
     restart: always
     container_name: flm-mysql
     volumes:
-        - ./data/mysql/:/var/lib/mysql
+      - db-data:/var/lib/mysql
     ports:
-            - 8098:3306
+      - 8098:3306
     environment:
-        - MYSQL_ROOT_PASSWORD=root
-        - MYSQL_HOST=flm-mysql
-        - MYSQL_PORT=8098
-        - MYSQL_DATABASE=flm
-        - MYSQL_USER=flm
-        - MYSQL_PASSWORD=flm
-    depends_on:
-        - flm-api
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_HOST=flm-mysql
+      - MYSQL_PORT=8098
+      - MYSQL_DATABASE=flm
+      - MYSQL_USER=flm
+      - MYSQL_PASSWORD=flm

@@ -32,15 +32,6 @@ RUN a2enmod headers
 COPY deploy-docker/php.ini /usr/local/etc/php/php.ini
 
 #add run.sh
-#RUN chmod +x deploy-docker/run.sh
-
-#Add Custom EntryPoint
-#COPY deploy-docker/docker-php-entrypoint /usr/local/bin/docker-php-entrypoint
-#RUN chmod +x /usr/local/bin/docker-php-entrypoint
-
+RUN chmod +x deploy-docker/run.sh
 RUN bash -c 'mkdir -p /var/www/html/storage/{logs,framework/sessions,framework/views,framework/cache,data}'
-
-RUN chown -R www-data:www-data /var/www/html/
-RUN chmod 755 /var/www/html/storage/ -R
-
-CMD ["apache2-foreground"]
+CMD bash deploy-docker/run.sh
