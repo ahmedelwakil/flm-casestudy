@@ -28,7 +28,7 @@ class PromoCodeFactory extends Factory
             'code' => 'FLM-' . Str::random(4),
             'type' => PromoCodesTypesUtil::VALUE,
             'value' => 10,
-            'expiry_date' => Carbon::today()->toDateString(),
+            'expiry_date' => Carbon::tomorrow()->toDateString(),
             'max_no_of_usages' => rand(2, 5),
             'max_no_of_usages_per_user' => 3,
             'allowed_users' => json_encode([1,2,3])

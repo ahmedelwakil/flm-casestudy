@@ -12,7 +12,7 @@ class PromoCodesUserAvailabilityValidator extends PromoCodeBaseValidator
     public function validate(): bool
     {
         $allowedUsers = json_decode($this->promoCode->allowed_users);
-        return is_null($allowedUsers) || in_array(Auth::user()->id, $allowedUsers);
+        return is_null($allowedUsers) || in_array(Auth::id(), $allowedUsers);
     }
 
     /**
