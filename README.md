@@ -30,6 +30,28 @@ To Run Unit Tests:
 ## API Documentation
 You can find a dumped postman collection ([FLM Postman Collection](./FLM%20Case%20Study%20Postman%20Collection.json)) containing local environment variables, authentication tests and examples of the endpoints developed by the system.
 
+## What is Implemented
+- Docker Containers & Deployment (Application Container - Database Container)
+- Authentication using [JWT](https://jwt-auth.readthedocs.io/en/develop/) (JSON Web Token)
+- Authorization using [Middlewares](./app/Http/Middleware/Custom)
+- Application Configuration
+- Control - Service - Repository Architecture
+- Database Design & Data [Migrations](./database/migrations)
+- [Factories](./database/factories) & [Seeders](./database/seeders)
+- Clean Code
+  - Custom [Exceptions](./app/Exceptions)
+  - Entities [Controllers](./app/Http/Controllers)
+  - Entities [Services](./app/Services)
+  - Entities [Repositories](./app/Repositories)
+  - Entities [Models](./app/Models)
+  - Entities [Creation Units](./app/Units)
+  - Constant [Utility Classes](./app/Utils)
+  - [Validation Classes](./app/Validators)
+- Promo Code Validation using [Chain of Responsibility](https://refactoring.guru/design-patterns/chain-of-responsibility) Design Pattern
+- Unit [Tests](./tests/Unit/PromoCodeServiceTest.php)
+- Readme [File](./README.md)
+- Postman API [Collection](./FLM%20Case%20Study%20Postman%20Collection.json)
+
 ## Project Architecture
 
 The project is developed using **Controller - Service - Repository architecture**
