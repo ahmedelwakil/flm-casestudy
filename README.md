@@ -14,9 +14,21 @@ Steps on how to deploy (Make sure docker-compose is installed on your machine):
 - Run Command ```docker-compose up -d```
 - Enjoy! :star_struck:
 
+**Note that the deployment seeds the database and all passwords are ``flm123456``
+
 The project will install 2 docker containers:
 - **MySQL Container**
 - **Laravel Application Container**
+
+To access any of the containers run ```docker exec -it {container-name} bash```
+
+To Run Unit Tests:
+- Access the Application Container ```docker exec -it flm-api bash```
+- Run the tests command ```./vendor/bin/phpunit```
+- Make sure you seed the database after running the tests ```php artisan db:seed```
+
+## API Documentation
+You can find a dumped postman collection ([FLM Postman Collection](./FLM%20Case%20Study%20Postman%20Collection.json)) containing local environment variables, authentication tests and examples of the endpoints developed by the system.
 
 ## Project Architecture
 
@@ -41,7 +53,4 @@ Also, you can find different code structures for single responsibilities such as
 - **..etc**
 
 Moreover, the project has its database seeder to easily populate the database.
-
-## API Documentation
-You can find a dumped postman collection ([FLM Postman Collection](./FLM%20Case%20Study%20Postman%20Collection.json)) containing local environment variables, authentication tests and examples of the endpoints developed by the system.
 
